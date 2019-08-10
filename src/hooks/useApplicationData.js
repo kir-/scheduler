@@ -53,13 +53,13 @@ export default function useApplicationData(data){
     return axios.put(`/api/appointments/${id}`,{
       interview
     }).then(()=>{
-      dispatch({type: SET_INTERVIEW, id, interview, days: 1})
+      dispatch({type: SET_INTERVIEW, id, interview, days: 0})
     })
   }
 
   function deleteInterview(id){
     return axios.delete(`/api/appointments/${id}`).then(()=>{
-      dispatch({type: SET_INTERVIEW, id, interview: null, days: -1})
+      dispatch({type: SET_INTERVIEW, id, interview: null, days: 0})
     })
   }
 
@@ -68,7 +68,7 @@ export default function useApplicationData(data){
   };
 
   useEffect(()=>{
-    let socket = new WebSocket("ws://localhost:3001");
+    let socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
     socket.onmessage = function(event){
       console.log("Message Recieved: " + event.data);
