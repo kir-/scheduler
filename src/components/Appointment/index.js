@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import "components/Appointment/styles.scss";
 
@@ -12,10 +12,6 @@ import Error from "components/Appointment/error";
 
 import useVisualMode from "hooks/useVisualMode";
 
-// export function checkInterview(interview){
-//   if (interview) {};
-//   return <Empty></Empty>;
-// }
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -43,13 +39,22 @@ export default function Appointment(props){
     transition(DELETING);
     props.deleteInterview(props.id).then(() => transition(EMPTY)).catch(() => transition(ERROR_DELETE, true));
   }
+
+  useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+     transition(SHOW);
+    }
+    if (props.interview === null && mode === SHOW) {
+     transition(EMPTY);
+    }
+   }, [props.interview, transition, mode]);
   
   return (<article className="appointment">
     <Header time={props.time}></Header>
     {mode === EMPTY && <Empty onAdd={()=>transition(CREATE)}/>}
-    {mode === SHOW && (
+    {mode === SHOW &&
     <Show student={props.interview.student} interviewer={props.interview.interviewer} onEdit={()=>transition(EDIT)} onDelete={()=>deleter()} />
-    )}
+    }
     {mode === CREATE && <Form name={""} interviewer={""} interviewers={props.interviewers} onSave={(name, interviewer)=>save(name, interviewer)} onCancel={()=>back()}/>}
     {mode === SAVING && <Status message="Saving"></Status>}
     {mode === DELETING && <Status message="Deleting"></Status>}

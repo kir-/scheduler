@@ -12,6 +12,7 @@ export function getAppointmentsForDay(state, day){
           return state.appointments[date]
         }
       }
+      return index
     })
   }
   return appointmentArray;
@@ -32,6 +33,7 @@ export function getInterviewersForDay(state, day){
           return state.appointments[date]
         }
       }
+      return index
     })
   }
 
@@ -62,6 +64,7 @@ export function getInterviewersForDayV2(state, day){
           return state.interviewers[interviewer]
         }
       }
+      return index
     })
   }
   return interviewerArray;
