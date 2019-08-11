@@ -25,7 +25,6 @@ function reducer(state, action) {
       const newDays = state.days.map((element)=>{
         if (element.name === state.day){
           const subtract = {...element, spots: element.spots - action.days}
-          
           return subtract
         } 
         return element
