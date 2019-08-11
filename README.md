@@ -4,6 +4,8 @@
 ## Description
 
 This is a web scheduler which utilizes web sockets to display and update a week with appointment bookings. The components are built in react and fetch data from an api server.
+
+
 Main page ![main page](https://github.com/kir-/scheduler/blob/master/images/Home%20Screen.png?raw=true)
 
 ## Setup
